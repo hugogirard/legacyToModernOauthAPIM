@@ -12,7 +12,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
 }
 
-module monitoring 'modules/log/monitoring.bicep' = {
+module monitoring 'modules/monitoring/monitoring.bicep' = {
   scope: resourceGroup(rg.name)
   name: 'monitoring'
   params: {
