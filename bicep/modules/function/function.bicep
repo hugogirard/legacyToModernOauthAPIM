@@ -1,5 +1,8 @@
 param location string
 param suffix string
+param appInsightName string
+
+
 
 resource storage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   name: 'strf${suffix}'
@@ -14,6 +17,10 @@ resource storage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
+resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: appInsightName
+}
+
 
 resource serverFarm 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: 'asp-${suffix}'
@@ -24,5 +31,49 @@ resource serverFarm 'Microsoft.Web/serverfarms@2022-09-01' = {
   }
   kind: 'functionapp'
   properties: {    
+  }
+}
+
+var functionAppName = 'fnc-blob-${suffix}'
+
+resource function 'Microsoft.Web/sites@2022-09-01' = {
+  name: functionAppName
+  location: location
+  kind: 'functionapp'
+  properties: {
+    serverFarmId: serverFarm.id
+    siteConfig: {
+      appSettings: [
+        {
+          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+          value: appInsights.properties.InstrumentationKey
+        }
+        {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value: appInsights.properties.ConnectionString
+        }
+        {
+          name: 'AzureWebJobsStorage'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storage.listKeys().keys[0].value}'
+        }
+        {
+          name: 'StrDocument'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storage.listKeys().keys[0].value}'
+        }
+        {
+          name: 'WEBSITE_CONTENTSHARE'
+          value: 'funcblobapp092'
+        }
+        {
+          name: 'FUNCTIONS_EXTENSION_VERSION'
+          value: '~4'
+        }
+        {
+          name: 'FUNCTIONS_WORKER_RUNTIME'
+          value: 'dotnet'
+        }
+      ]
+      netFrameworkVersion: 'v6.0'
+    }    
   }
 }

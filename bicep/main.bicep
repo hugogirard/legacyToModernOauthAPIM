@@ -12,11 +12,21 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
 }
 
+module monitoring 'modules/log/monitoring.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'monitoring'
+  params: {
+    location: location
+    suffix: suffix
+  }
+}
+
 module function 'modules/function/function.bicep' = {
   scope: resourceGroup(rg.name)
   name: 'function'
   params: {
     location: location
     suffix: suffix
+    appInsightName: monitoring.outputs.appInsightName
   }
 }
