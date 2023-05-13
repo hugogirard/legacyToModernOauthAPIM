@@ -1,7 +1,10 @@
 targetScope='subscription'
 
 param location string
-
+@secure()
+param publisherEmail string
+@secure()
+param publisherName string
 
 var rgName = 'rg-apim-legacy-flow'
 
@@ -28,5 +31,17 @@ module function 'modules/function/function.bicep' = {
     location: location
     suffix: suffix
     appInsightName: monitoring.outputs.appInsightName
+  }
+}
+
+module apim 'modules/apim/apim.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'apim'
+  params: {
+    appInsightName: monitoring.outputs.appInsightName
+    location: location
+    publisherEmail: publisherEmail
+    publisherName: publisherName
+    suffix: suffix
   }
 }
