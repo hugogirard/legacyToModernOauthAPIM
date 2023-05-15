@@ -1,16 +1,17 @@
 param functionName string
-param backend string
+param apimName string
 
-resource backendResource 'Microsoft.ApiManagement/service/backends@2022-09-01-preview' existing = {
-  name: backend
+resource apiManagement 'Microsoft.ApiManagement/service@2022-08-01' existing = {
+  name: apimName
 }
 
-resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
-  parent: backendResource
+resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = { 
+  parent: apiManagement
   name: functionName
   properties: {
     displayName: functionName
     apiRevision: '1'
+    serviceUrl: 'https/${functionName}.azurewebsites.net/api/ProtectFuncion'
     description: 'Function API ${functionName}'
     path: 'func'
     subscriptionRequired: true
@@ -22,5 +23,15 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
       query: 'subscription-key'
     }
     isCurrent: true
+  }
+}
+
+resource operationFunction 'Microsoft.ApiManagement/service/apis/operations@2022-09-01-preview' = {
+  parent: apis
+  name: 'SendSoapMessage'
+  properties: {
+    displayName: 'SendSoapMessage'
+    method: 'POST'
+    urlTemplate: '/'
   }
 }
