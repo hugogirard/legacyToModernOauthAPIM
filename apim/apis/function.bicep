@@ -11,7 +11,7 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
   properties: {
     displayName: functionName
     apiRevision: '1'
-    serviceUrl: 'https/${functionName}.azurewebsites.net/api/ProtectFunction'
+    serviceUrl: 'https/${functionName}.azurewebsites.net/api/'
     description: 'Function API ${functionName}'
     path: 'func'
     subscriptionRequired: true
@@ -28,10 +28,10 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
 
 resource operationFunction 'Microsoft.ApiManagement/service/apis/operations@2022-09-01-preview' = {
   parent: apis
-  name: 'SendSoapMessage'
+  name: 'SendSoapMsg'
   properties: {
-    displayName: 'SendSoapMessage'
+    displayName: 'SendSoapMsg'
     method: 'POST'
-    urlTemplate: '/'
+    urlTemplate: '/ProtectFunction'
   }
 }
