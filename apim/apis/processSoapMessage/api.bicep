@@ -1,6 +1,8 @@
 param functionName string
 param apimName string
 
+var url = 'https://${functionName}.azurewebsites.net/api/'
+
 resource apiManagement 'Microsoft.ApiManagement/service@2022-08-01' existing = {
   name: apimName
 }
@@ -11,7 +13,7 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
   properties: {
     displayName: functionName
     apiRevision: '1'
-    serviceUrl: 'https://${functionName}.azurewebsites.net/api/'
+    serviceUrl: url
     description: 'Function API ${functionName}'
     path: 'func'
     subscriptionRequired: true
