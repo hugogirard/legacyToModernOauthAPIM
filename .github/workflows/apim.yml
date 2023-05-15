@@ -1,0 +1,30 @@
+name: Deploys Apis in APIM
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'apim/**/*.bicep'
+
+jobs:
+  configure-apis:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: deploy
+        id: createResources
+        uses: azure/arm-deploy@v1
+        with:
+          resourceGroupName: ${{ secrets.RG_NAME }}
+          template: ./apim/main.bicep
+          parameters: apimName=${{ secrets.APIM_NAME }} functionName=${{ secrets.FUNCTION_NAME }}
+          
