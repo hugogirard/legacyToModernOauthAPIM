@@ -11,7 +11,7 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
   properties: {
     displayName: functionName
     apiRevision: '1'
-    serviceUrl: 'https/${functionName}.azurewebsites.net/api/'
+    serviceUrl: 'https://fnc-blob-bbhe7ombhjo3u.azurewebsites.net/api/'
     description: 'Function API ${functionName}'
     path: 'func'
     subscriptionRequired: true
