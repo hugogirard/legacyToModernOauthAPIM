@@ -15,6 +15,8 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
     description: 'Function API ${functionName}'
     path: 'func'
     subscriptionRequired: true
+    format: 'openapi+json'
+    value: loadTextContent('./swagger.json')
     protocols: [
       'https'
     ]
@@ -26,12 +28,3 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
   }
 }
 
-resource operationFunction 'Microsoft.ApiManagement/service/apis/operations@2022-09-01-preview' = {
-  parent: apis
-  name: 'SendSoapMsg'
-  properties: {
-    displayName: 'SendSoapMsg'
-    method: 'POST'
-    urlTemplate: '/ProtectFunction'
-  }
-}
