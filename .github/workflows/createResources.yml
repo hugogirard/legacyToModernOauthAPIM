@@ -36,11 +36,18 @@ jobs:
           parameters: location=${{ env.LOCATION }} publisherEmail=${{ secrets.PUBLISHER_EMAIL }} publisherName=${{ secrets.PUBLISHER_NAME }}
 
       - uses: gliech/create-github-secret-action@v1
-        name: Write Webapp Fibonnaci Prod Name
+        name: Write Function Name
         with:
           name: FUNCTION_NAME
           value: ${{ steps.createResources.outputs.functionName }}
           pa_token: ${{ secrets.PA_TOKEN }}                          
 
 
-    
+      - uses: gliech/create-github-secret-action@v1
+        name: Write Apim Name
+        with:
+          name: APIM_NAME
+          value: ${{ steps.createResources.outputs.apimName }}
+          pa_token: ${{ secrets.PA_TOKEN }}        
+
+          

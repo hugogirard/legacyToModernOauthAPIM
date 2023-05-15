@@ -37,3 +37,5 @@ resource apimName_appInsightsObject_name 'Microsoft.ApiManagement/service/logger
     }
   }
 }
+
+output apimName string = apiManagement.name

@@ -47,3 +47,4 @@ module apim 'modules/apim/apim.bicep' = {
 }
 
 output functionName string = function.outputs.functionName
+output apimName string = apim.outputs.apimName
