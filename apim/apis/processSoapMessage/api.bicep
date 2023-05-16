@@ -2,6 +2,7 @@ param functionName string
 param apimName string
 
 var url = 'https://${functionName}.azurewebsites.net/api/'
+var operationName = 'ProcessSoapMessage'
 
 resource apiManagement 'Microsoft.ApiManagement/service@2022-08-01' existing = {
   name: apimName
@@ -26,10 +27,10 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
   }
 }
 
-// resource policy 'Microsoft.ApiManagement/service/apis/operations/policies@2022-09-01-preview' = {  
-//   name: '${apiManagement.name}/${apis.name}/Run/policy'
-//   properties: {
-//     format: 'rawxml'
-//     value: loadTextContent('./policy.xml')
-//   }
-// }
+resource policy 'Microsoft.ApiManagement/service/apis/operations/policies@2022-09-01-preview' = {  
+  name: '${apiManagement.name}/${apis.name}/${operationName}/policy'
+  properties: {
+    format: 'rawxml'
+    value: loadTextContent('./policy.xml')
+  }
+}
