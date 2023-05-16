@@ -27,8 +27,14 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
   }
 }
 
-resource policy 'Microsoft.ApiManagement/service/apis/operations/policies@2022-09-01-preview' = {  
-  name: '${apiManagement.name}/${apis.name}/${operationName}/policy'
+resource policy 'Microsoft.ApiManagement/service/apis/operations@2022-09-01-preview' = {  
+  parent: apis
+  name: operationName  
+}
+
+resource policyOperation 'Microsoft.ApiManagement/service/apis/operations/policies@2022-09-01-preview' = {  
+  parent: policy
+  name: 'policy'
   properties: {
     format: 'rawxml'
     value: loadTextContent('./policy.xml')
