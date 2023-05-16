@@ -26,5 +26,5 @@ jobs:
         with:
           resourceGroupName: ${{ secrets.RG_NAME }}
           template: ./apim/main.bicep
-          parameters: apimName=${{ secrets.APIM_NAME }} functionName=${{ secrets.FUNCTION_NAME }}
+          parameters: apimName=${{ secrets.APIM_NAME }} functionName=${{ secrets.FUNCTION_NAME }} clientId=${{ secrets.CLIENT_ID }} clientSecret=${{ secrets.CLIENT_SECRET }} idpTokenEndpoint=${{ secrets.IDP_TOKEN_ENDPOINT }} scope=${{ secrets.SCOPE }}
           
