@@ -22,7 +22,7 @@
 
                     // Load SOAP message
                     xmlDocument.LoadXml(context.Request.Body.As<string>());
-                    var root = xmlDcoument.DocumentElement;
+                    var root = xmlDocument.DocumentElement;
                     var username = root.GetElementsByTagName("o:Username");
                     var password = root.GetElementsByTagName("o:Password");
                     
