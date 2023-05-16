@@ -11,22 +11,13 @@
   ],
   "paths": {
     "/ProcessSoapMessage": {
-      "get": {
+      "post": {
         "tags": [
           "name"
         ],
-        "operationId": "Run",
+        "operationId": "ProcessSoapMessage",
         "produces": [
           "text/plain"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "name",
-            "description": "The **Name** parameter",
-            "required": true,
-            "type": "string"
-          }
         ],
         "responses": {
           "200": {
