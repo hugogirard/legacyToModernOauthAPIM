@@ -11,22 +11,25 @@ resource apis 'Microsoft.ApiManagement/service/apis@2022-09-01-preview' = {
   parent: apiManagement
   name: functionName
   properties: {
-    displayName: functionName
+    displayName: 'ProcessSoapMessage'
     apiRevision: '1'
     serviceUrl: url
     description: 'Function API ${functionName}'
     path: 'func'
-    subscriptionRequired: true
+    subscriptionRequired: false
     format: 'openapi+json'
     value: loadTextContent('./swagger.json')
     protocols: [
       'https'
     ]
-    subscriptionKeyParameterNames: {
-      header: 'Ocp-Apim-Subscription-Key'
-      query: 'subscription-key'
-    }
     isCurrent: true
   }
 }
 
+// resource policy 'Microsoft.ApiManagement/service/apis/operations/policies@2022-09-01-preview' = {  
+//   name: '${apiManagement.name}/${apis.name}/Run/policy'
+//   properties: {
+//     format: 'rawxml'
+//     value: loadTextContent('./policy.xml')
+//   }
+// }
