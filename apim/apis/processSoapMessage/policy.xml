@@ -22,9 +22,22 @@
 
                     // Load SOAP message
                     xmlDocument.LoadXml(context.Request.Body.As<string>());
+                    var root = xmlDcoument.DocumentElement;
+                    var username = root.GetElementsByTagName("o:Username");
+                    var password = root.GetElementsByTagName("o:Password");
+                    
+                    // Compose the form encoded body
+                    var sb = new StringBuilder();
+                    
+                    sb.Append("client_id={{clientId}}&");
+                    sb.Append("username=" + username[0].InnerText + "&");
+                    sb.Append("password=" + password[0].InnerText + "&");
+                    sb.Append("scope={{scope}}&");
+                    sb.Append("client_secret={{clientSecret}}&");
+                    sb.Append("grant_type=password");
 
-
-                    return "client_id={{clientId}}&username={{username}}&password={{password}}&scope={{scope}}&client_secret={{clientSecret}}&grant_type=password";
+                    return sb.ToString();
+                    //return "client_id={{clientId}}&username={{username}}&password={{password}}&scope={{scope}}&client_secret={{clientSecret}}&grant_type=password";
                }</set-body>
         </send-request>
         <set-header name="Authorization" exists-action="override">
