@@ -19,7 +19,7 @@ resource apiManagement 'Microsoft.ApiManagement/service@2022-08-01' = {
   }
   properties: {
     publisherEmail: publisherEmail
-    publisherName: publisherName              
+    publisherName: publisherName                  
   }
   identity: {
     type: 'SystemAssigned'

@@ -34,6 +34,15 @@ module function 'modules/function/function.bicep' = {
   }
 }
 
+module redis 'modules/cache/redis.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'redis'
+  params: {
+    location: location
+    suffix: suffix
+  }
+}
+
 module apim 'modules/apim/apim.bicep' = {
   scope: resourceGroup(rg.name)
   name: 'apim'
