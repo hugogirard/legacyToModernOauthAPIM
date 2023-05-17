@@ -2,7 +2,7 @@ param functionName string
 param apimName string
 
 var url = 'https://${functionName}.azurewebsites.net/api/'
-var operationName = 'ProcessSoapMessage'
+//var operationName = 'ProcessSoapMessage'
 
 resource apiManagement 'Microsoft.ApiManagement/service@2022-08-01' existing = {
   name: apimName
