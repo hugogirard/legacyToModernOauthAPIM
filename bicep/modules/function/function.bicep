@@ -79,47 +79,47 @@ resource functionProcessMsg 'Microsoft.Web/sites@2022-09-01' = {
   }
 }
 
-resource functionAuthMsg 'Microsoft.Web/sites@2022-09-01' = {
-  name: functionAuthenticationAppName
-  location: location
-  kind: 'functionapp'
-  properties: {
-    serverFarmId: serverFarm.id
-    siteConfig: {
-      appSettings: [
-        {
-          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: appInsights.properties.InstrumentationKey
-        }
-        {
-          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-          value: appInsights.properties.ConnectionString
-        }
-        {
-          name: 'AzureWebJobsStorage'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storage.listKeys().keys[0].value}'
-        }
-        {
-          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storage.listKeys().keys[0].value}'
-        }
-        {
-          name: 'WEBSITE_CONTENTSHARE'
-          value: 'funcauthapp092'
-        }
-        {
-          name: 'FUNCTIONS_EXTENSION_VERSION'
-          value: '~4'
-        }
-        {
-          name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'dotnet'
-        }
-      ]
-      netFrameworkVersion: 'v7.0'
-    }    
-  }
-}
+// resource functionAuthMsg 'Microsoft.Web/sites@2022-09-01' = {
+//   name: functionAuthenticationAppName
+//   location: location
+//   kind: 'functionapp'
+//   properties: {
+//     serverFarmId: serverFarm.id
+//     siteConfig: {
+//       appSettings: [
+//         {
+//           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+//           value: appInsights.properties.InstrumentationKey
+//         }
+//         {
+//           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+//           value: appInsights.properties.ConnectionString
+//         }
+//         {
+//           name: 'AzureWebJobsStorage'
+//           value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storage.listKeys().keys[0].value}'
+//         }
+//         {
+//           name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+//           value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storage.listKeys().keys[0].value}'
+//         }
+//         {
+//           name: 'WEBSITE_CONTENTSHARE'
+//           value: 'funcauthapp092'
+//         }
+//         {
+//           name: 'FUNCTIONS_EXTENSION_VERSION'
+//           value: '~4'
+//         }
+//         {
+//           name: 'FUNCTIONS_WORKER_RUNTIME'
+//           value: 'dotnet'
+//         }
+//       ]
+//       netFrameworkVersion: 'v7.0'
+//     }    
+//   }
+// }
 
 output functionNameProcessMessage string = functionProcessMsg.name
-output functionNameAuthentication string = functionAuthMsg.name
+//output functionNameAuthentication string = functionAuthMsg.name
