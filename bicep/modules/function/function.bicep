@@ -105,7 +105,7 @@ resource functionAuthMsg 'Microsoft.Web/sites@2022-09-01' = {
         }
         {
           name: 'WEBSITE_CONTENTSHARE'
-          value: 'funcblobapp092'
+          value: 'funcauthapp092'
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
