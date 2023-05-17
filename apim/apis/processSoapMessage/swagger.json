@@ -15,7 +15,7 @@
         "tags": [
           "name"
         ],
-        "operationId": "Run",
+        "operationId": "ProcessSoapMessage",
         "produces": [
           "text/plain"
         ],
