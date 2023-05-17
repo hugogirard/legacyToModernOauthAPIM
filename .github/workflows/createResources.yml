@@ -42,8 +42,8 @@ jobs:
       - uses: gliech/create-github-secret-action@v1
         name: Write Function Name
         with:
-          name: FUNCTION_NAME
-          value: ${{ steps.createResources.outputs.functionName }}
+          name: FUNCTION_NAME_PROCESS_MSG
+          value: ${{ steps.createResources.outputs.functionNameProcessMessage }}
           pa_token: ${{ secrets.PA_TOKEN }}                          
 
 

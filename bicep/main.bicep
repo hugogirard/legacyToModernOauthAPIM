@@ -46,6 +46,7 @@ module apim 'modules/apim/apim.bicep' = {
   }
 }
 
-output functionName string = function.outputs.functionName
+output functionNameProcessMessage string = function.outputs.functionNameProcessMessage
+output functionNameAuthentication string = function.outputs.functionNameAuthentication
 output apimName string = apim.outputs.apimName
 output rgName string = rg.name

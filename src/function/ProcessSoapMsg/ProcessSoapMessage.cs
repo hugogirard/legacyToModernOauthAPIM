@@ -22,18 +22,14 @@ namespace Contoso
         }
 
         [FunctionName("ProcessSoapMessage")]
-        [OpenApiOperation(operationId: "ProcessSoapMessage", tags: new[] { "name" })]        
+        [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]        
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
-            
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                        
-            string responseMessage = string.IsNullOrEmpty(requestBody)
-                ? "This HTTP triggered function executed successfully but body is empty"
-                : requestBody;
+
+            string responseMessage = "Function working";
 
             return new OkObjectResult(responseMessage);
         }
