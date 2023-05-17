@@ -15,11 +15,30 @@
             <set-url>{{idpTokenEndpoint}}</set-url>
             <set-method>POST</set-method>
             <set-header name="Content-Type" exists-action="override">
-                <value>application/json</value>
+                <value>application/x-www-form-urlencoded</value>
             </set-header>
-            <set-body>@{                    
-                    return context.Request.Body.As<string>();
-            }</set-body>
+            <set-body>@{
+                    var xmlDocument = new XmlDocument();
+
+                    // Load SOAP message
+                    xmlDocument.LoadXml(context.Request.Body.As<string>());
+                    var root = xmlDocument.DocumentElement;
+                    var username = root.GetElementsByTagName("o:Username");
+                    var password = root.GetElementsByTagName("o:Password");
+                    
+                    // Compose the form encoded body
+                    var sb = new StringBuilder();
+                    
+                    sb.Append("client_id={{clientId}}&");
+                    sb.Append("username=" + username[0].InnerText + "&");
+                    sb.Append("password=" + password[0].InnerText + "&");
+                    sb.Append("scope={{scope}}&");
+                    sb.Append("client_secret={{clientSecret}}&");
+                    sb.Append("grant_type=password");
+
+                    return sb.ToString();
+                    //return "client_id={{clientId}}&username={{username}}&password={{password}}&scope={{scope}}&client_secret={{clientSecret}}&grant_type=password";
+               }</set-body>
         </send-request>
         <set-header name="Authorization" exists-action="override">
             <value>@("Bearer " + (String)((IResponse)context.Variables["bearerToken"]).Body.As<JObject>()["access_token"])</value>

@@ -1,5 +1,6 @@
 param apimName string
-param functionName string
+param functionNameProcessMsg string
+param functionNameAuth string
 @secure()
 param clientId string
 @secure()
@@ -17,6 +18,7 @@ module namedValues 'namedValue/namedValue.bicep' = {
     clientSecret: clientSecret
     idpTokenEndpoint: idpTokenEndpoint
     scope: scope
+    functionName: functionNameAuth
   }
 }
 
@@ -24,6 +26,6 @@ module functionApi 'apis/processSoapMessage/api.bicep' = {
   name: 'functionApi'
   params: {
     apimName: apimName
-    functionName: functionName
+    functionName: functionNameProcessMsg
   }
 }
