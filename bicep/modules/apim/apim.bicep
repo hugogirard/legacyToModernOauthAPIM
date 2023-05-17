@@ -11,7 +11,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
 }
 
 resource apiManagement 'Microsoft.ApiManagement/service@2022-08-01' = {
-  name: 'apim-${suffix}'
+  name: 'api-${suffix}'
   location: location
   sku: {
     name: 'Consumption'
@@ -19,7 +19,7 @@ resource apiManagement 'Microsoft.ApiManagement/service@2022-08-01' = {
   }
   properties: {
     publisherEmail: publisherEmail
-    publisherName: publisherName          
+    publisherName: publisherName              
   }
   identity: {
     type: 'SystemAssigned'
