@@ -18,7 +18,7 @@ namespace Contoso
         }
 
         [Function("GetJwtTokenFromSoapHeader")]
-        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req)
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req)
         {
             try
             {
