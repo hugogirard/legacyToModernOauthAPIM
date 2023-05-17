@@ -12,7 +12,7 @@
     <inbound>
         <base />
         <send-request mode="new" response-variable-name="bearerToken" timeout="20" ignore-error="false">
-            <set-url>{{idpTokenEndpoint}}</set-url>
+            <set-url>{{functionEndpoint}}</set-url>
             <set-method>POST</set-method>
             <set-header name="Content-Type" exists-action="override">
                 <value>application/json</value>

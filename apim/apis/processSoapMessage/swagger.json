@@ -11,11 +11,11 @@
   ],
   "paths": {
     "/ProcessSoapMessage": {
-      "post": {
+      "get": {
         "tags": [
           "name"
         ],
-        "operationId": "ProcessSoapMessage",
+        "operationId": "Run",
         "produces": [
           "text/plain"
         ],
