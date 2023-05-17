@@ -35,7 +35,7 @@ resource serverFarm 'Microsoft.Web/serverfarms@2022-09-01' = {
 }
 
 var functionProcessMsgAppName = 'fnc-process-${suffix}'
-var functionAuthenticationAppName = 'fnc-process-${suffix}'
+var functionAuthenticationAppName = 'fnc-auth-${suffix}'
 
 resource functionProcessMsg 'Microsoft.Web/sites@2022-09-01' = {
   name: functionProcessMsgAppName
