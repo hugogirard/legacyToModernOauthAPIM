@@ -11,7 +11,7 @@
   ],
   "paths": {
     "/ProcessSoapMessage": {
-      "get": {
+      "post": {
         "tags": [
           "name"
         ],
